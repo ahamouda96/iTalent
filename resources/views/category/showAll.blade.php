@@ -7,7 +7,7 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h3 class="panel-title">
-                        Created by {{ $post->user->username }}, {{ $post->title }}
+                        Created by {{ $post->user->name }}, {{ $post->title }}
                     </h3>
                   </div>
                   <div class="panel-body">
@@ -51,7 +51,7 @@
                           @php
                               $c++;
                           @endphp
-                      @endforeach
+                      @endforeach   
                       <a href="#" class="btn btn-link">Comment</a>
                   </div>
                 </div>

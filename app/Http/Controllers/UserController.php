@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use Image;
+use App\User;
 
 class UserController extends Controller
 {
@@ -13,6 +14,8 @@ class UserController extends Controller
         $user = Auth::user();
         return view('profile',compact('user',$user));
     }
+
+
 
     // public function update_avatar(Request $request){
     // 	Handle the user upload of avatar
@@ -26,4 +29,5 @@ class UserController extends Controller
     // 	}
     // 	return view('profile', array('user' => Auth::user()) ); // redirect to current profile
     // }
+
 }

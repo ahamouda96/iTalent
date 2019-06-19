@@ -22,7 +22,8 @@ class PostsController extends Controller
     {
         $posts = Post::all()->sortByDesc('id');
         $categories = Category::all();
-        return view('posts.index')->withPosts($posts)->withCategories($categories);        
+        $users = User::orderBy('id','desc')->paginate(5);
+        return view('posts.index')->withPosts($posts)->withCategories($categories)->withUsers($users);        
     }
 
     /**
@@ -79,7 +80,7 @@ class PostsController extends Controller
                 $post->friends()->sync($request->tags, false);
             }       
         Session::flash('success', 'Post was successfully added');
-        return redirect('/posts');
+        return redirect('/home');
     }
 
     /**
@@ -224,10 +225,12 @@ class PostsController extends Controller
 
         
     }
-
+ 
     // public function post($id){
     //     $post = Post::findOrFail($id);
     //     return view('post', compact('post'));
-    // }
+    // } 
+
+    
     
 }

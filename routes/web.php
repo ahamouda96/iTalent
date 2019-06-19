@@ -15,11 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('profile', 'UserController@profile');
-//Route::post('profile', 'UserController@update_avatar');
 
-Route::get('profile', 'ProfileController@index')->name('profile');
-Route::post('profile', 'ProfileController@updateProfile')->name('profile.update');
 Route::post('profile/{profileId}/follow', 'ProfileController@followUser')->name('user.follow');
 Route::post('/{profileId}/unfollow', 'ProfileController@unFollowUser')->name('user.unfollow');
 
@@ -32,9 +28,12 @@ Route::group(['middleware'=>'admin:User'], function(){
 
 Route::group(['middleware'=>'admin:Admin,Talent'], function(){
 //admin and talent
-Route::resource('/posts','PostsController');
+//Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('/home','PostsController');
+
 Route::resource('/categories', 'CategoriesController');
 Route::get('/post/category/{name}', 'CategoriesController@showAll')->name('category.showAll');
+
 
 Route::get('/post/{id}', 'PostsController@show')->name('post.show');
 Route::get('/post/{id}/edit', 'PostsController@edit')->name('post.edit');
@@ -43,7 +42,7 @@ Route::delete('/post/{id}/delete', 'PostsController@destroy')->name('post.delete
 Route::post('/like', 'LikesController@index');
 Route::post('/comment', 'commentsController@index');
 
-Route::get('/users', 'HomeController@listUser');
+Route::get('/users', 'HomeController@friendsuggest');
 Route::get('/users/{id}', 'HomeController@showUser')->name('user.show');
 
 
@@ -51,6 +50,18 @@ Route::post('/friend', 'FriendController@index');
 Route::get('/friend/{id}', 'FriendController@showFriends')->name('friend.show');
 Route::post('/friend/remove', 'FriendController@remove');
 Route::post('/request', 'FriendController@request');
+
+route::get('/profile/{id}/{slug?}','HomeController@profile')->name('front.profile');
+
+// suggest right aside
+//Route::get('/users', 'HomeController@friendsuggest')->name('suggest.user');
+
+// edit profile
+Route::get('editprofileprofile', 'UserController@profile');
+//Route::post('profile', 'UserController@update_avatar');
+
+Route::get('editprofileprofile', 'ProfileController@index')->name('profile');
+Route::post('editprofileprofile', 'ProfileController@updateProfile')->name('profile.update');
 
 });
 
@@ -62,6 +73,7 @@ Route::namespace('admin')->group(function(){
             Route::get('/', function(){
                 return view('admin.index');
             });
+            
             Route::resource('/users','AdminUsersController');
             Route::resource('/posts','AdminPostsController');
             Route::resource('/categories', 'AdminCategoriesController');
@@ -82,5 +94,7 @@ Route::group(['middleware'=>'auth'], function(){
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+
+
 

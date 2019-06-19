@@ -18,11 +18,11 @@ class LikesController extends Controller
             $like->like = $request->isLike;
             $like->save();
         }
-        else {
-            $likes->like = $request->isLike;
-            $likes->save();
+        if($likes != null){
+            $likes->delete();
         }
-        return ['status' => 'Ok this works fine'];
+       
+        
     } 
 }
 

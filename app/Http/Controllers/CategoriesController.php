@@ -16,7 +16,7 @@ class CategoriesController extends Controller
     //     return view('admin.categories.index', compact('categories'));
     // }
     public function index() {
-        $categories = Category::orderBy('id', 'desc')->paginate(10);
+        $categories = Category::orderBy('id', 'desc')->paginate(3);
         return view('category.index')->withCategories($categories);
     }
     
@@ -28,4 +28,10 @@ class CategoriesController extends Controller
         }
         return redirect('/post');
     }
+
+
+    // public function category($id, $slug = null){
+    //     $category = Category::findOrFail($id);
+    //     return view('profile.leftside', compact('category'));
+    // }
 }
