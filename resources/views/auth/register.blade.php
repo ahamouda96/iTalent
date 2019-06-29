@@ -1,14 +1,34 @@
 @extends('layouts.app')
 
+@push('css')
+<style>
+    body{
+        background-image: url('/assets/images/BgSignUp.jpeg');
+        }
+        .card{
+            background-image: url('/assets/images/form-v9.jpg');
+        }
+        label{
+            color:#00D1B8 !important; 
+        }
+        a{
+            color:#00D1B8 !important; 
+            text-decoration: none !important;
+        }
+</style>
+    
+@endpush
 @section('content')
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card" style="margin-top:7%">
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <div class="animatedlogin">
+                    <form class="box" method="POST" action="{{ route('register') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -65,8 +85,10 @@
                             <label for="choose role" class="col-md-4 col-form-label text-md-right">Choose Role</label>
 
                             <div class="col-md-6">
-                                <input type="radio" name="role_id" value="4" checked> user<br>
-                                <input type="radio" name="role_id" value="3"> talent<br>
+                                <input type="radio" name="role_id" value="4" checked>
+                                 <span style="color:#00D1B8">user</span><br>
+                                <input style="color:#00D1B8" type="radio" name="role_id" value="3">
+                                <span style="color:#00D1B8">talent</span><br><br>
                             </div>
                             @if ($errors->has('role_id'))
                                     <span class="invalid-feedback" role="alert">
@@ -74,10 +96,6 @@
                                     </span>
                                 @endif
                         </div>
-
-
-                        
-
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -86,6 +104,8 @@
                             </div>
                         </div>
                     </form>
+                    </div>
+                    
                 </div>
             </div>
         </div>

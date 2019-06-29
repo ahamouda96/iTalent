@@ -48,7 +48,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-
           <img src="/uploads/images/{{ Auth::user()->profile_image ? Auth::user()->profile_image : 'default.png' }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
@@ -143,7 +142,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <li class="nav-item">
                 <router-link to="/profile" class="nav-link">
                     <i class="nav-icon fas fa-user orange"></i>
-                    <a href="{{ url('/profile') }}"><i class="fa fa-btn fa-user"></i>Profile</a>
+                    <a href="{{ url('/profile/1') }}"><i class="fa fa-btn fa-user"></i>Profile</a>
+                </router-link>
+         </li>
+
+         <li class="nav-item">
+                <router-link to="/home" class="nav-link">
+                    <i class="nav-icon fas fa-user orange"></i>
+                    <a href="{{ url('/home') }}"><i class="fa fa-btn fa-user"></i>Home</a>
                 </router-link>
          </li>
 

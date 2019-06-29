@@ -15,6 +15,8 @@ class UserController extends Controller
         return view('profile',compact('user',$user));
     }
 
+    
+
 
 
     // public function update_avatar(Request $request){

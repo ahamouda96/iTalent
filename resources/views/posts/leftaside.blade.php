@@ -1,7 +1,4 @@
 
-
-
- 
 <!-- start left side-->
       <div class="aside-left">
         <div class="profile-intro">

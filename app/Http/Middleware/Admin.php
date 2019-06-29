@@ -19,13 +19,12 @@ class Admin
     {
       
         if(Auth::check()){
-            if(Auth::user()->checkrole($role)){
+            if(Auth::user()->checkrole($role)){ 
                 return $next($request);
             }
             return redirect('/home');
         }
         
         return redirect('/');
-    }
-    
+    }    
 }

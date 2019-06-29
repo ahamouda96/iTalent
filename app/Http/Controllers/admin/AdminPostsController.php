@@ -189,6 +189,8 @@ class AdminPostsController extends Controller
         if ($post->video != null) {
             Storage::delete('/uploads/posts/video/'.$post->image);
         }
+        $post->delete();
+        return redirect('/admin/posts'); 
            
         // $mediaType = PostMedia::type;
         // if($mediaType::type=="image" )
@@ -200,8 +202,7 @@ class AdminPostsController extends Controller
         //     Storage::delete('uploads/posts/video', $filePath);   
         // }
 
-        $post->delete();
-        return redirect('/admin/posts');
+        
     }
 
     public function post($id){

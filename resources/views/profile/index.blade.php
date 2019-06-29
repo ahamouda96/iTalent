@@ -1,9 +1,23 @@
 
 @extends('layouts.app')
+@push('css')
+    <style>
+        .favorite_posts{
+            color: red;
+        }
+        .followings{
+            color: #E0245E;
+        }
+
+        .aside-right .top-post{
+            height: 100%;
+        }
+    </style>
+@endpush
 @section('content')
                
 <!-- Start Center -->
-            
+<div class='contant'>       
 <div class="center">
     <div class="head">
         <div class="background-img">
@@ -16,7 +30,7 @@
                 <span class="name">{{ $user->name }}</span>
             </div>
 
-            <div class="tool-par-links" data-friendid="{{ $user->id }}">
+            <!-- <div class="tool-par-links" data-friendid="{{ $user->id }}">
             @if(Auth()->user()->id != $user->id)
                 @if (Auth::check())
                     @php
@@ -42,18 +56,105 @@
                 <a href="{{ route('friend.show', $user->id) }}" class="margin-right btn btn-link">
                     View Friends
                 </a>   
-            </div>
+            </div> -->
                                            
             <div class="tool-par-links">
-                <a href="#" class="margin-left"></a>
-                <a href="#" class="margin-left"></a>   
+            <!-- <a href="{{ route('user.follow', $user->id) }}">Follow User</a>
+            <a href="{{ route('user.unfollow', $user->id) }}">Unfollow User</a> -->
+
+
+@if(Auth()->user()->id != $user->id) <!-- check if auth user-->       
+@if (Auth::check())
+<!-- start follow here-->
+@guest
+<a href="javascript:void(0);" onclick="('To follow user. You need to login first.','Info',{
+closeButton: true,
+progressBar: true,
+})">
+<i class="fa fa-add"></i>
+{{$user->followers->count()}}
+ follow
+</a>
+@else
+<a href="javascript:void(0);" onclick="document.getElementById('follow-form-{{ $user->id }}').submit();"
+class="{{ !Auth::user()->followings->where('pivot.leader_id',$user->id)->count()  == 0 ? 'followings' : ''}}">
+
+@if($user->followers->count() == 1)
+    <span class="followings">unfollow</span>
+
+@else
+    <span>follow</span>
+
+@endif
+</a>
+
+
+<form id="follow-form-{{ $user->id }}" method="POST" action="{{ route('user.follow',$user->id) }}" style="display: none;">
+@csrf
+</form>
+@endguest
+@endif
+
+@endif <!-- end if auth check-->
+<!-- end follow here-->
+
+
             </div>
         </div>
    </div>
             
 <div class="body">
+<div class='row'>
+@if(auth()->user()->role_id == 4)
+<div class="col-sm-3"></div>
+<div class="col-sm-6" style="margin-left: 50%;width: 745px !important">
+<div class="aside-left">
+<div class="profile-intro">
+<div class="title">
+    <span class="title-name">Profile intro</span>
+</div>
+<hr class="hr">
 
-<!-- End Aside Left -->
+<div class="items">
+<p class="items-title">About Me:</p>
+<span class="items-info">
+{{ $user->bio }}
+</span>
+</div>
+<div class="items">
+<p class="items-title">Favourite:</p>
+<span class="items-info">
+{{ $user->bio }}
+</span>
+</div>
+
+<div class="items">
+<p class="items-title">Other Network:</p>
+<a class="facebook" href="{{$user->links}}">
+<i class="fa fa-facebook"></i>
+</a>
+
+</div>
+
+<hr class="hr">
+<div class="items-play">
+<p><span> &copy;  2019 ITalent About Us Help
+Terms Privacy policy
+Marketing Bussiness Developers</span> </p>
+
+<a href="https://play.google.com/store?hl=ar">
+<button style='font-size:24px'>Google Play <i class='fab fa-google-play'></i></button>
+</a>
+</div>
+</div>
+
+</div>
+
+</div>
+<div class="col-sm-3"></div>
+@endif 
+@if(auth()->user()->role_id != 4) 
+<!-- start Aside Left -->
 <div class="col-sm-3">
 <div class="aside-left">
 <div class="profile-intro">
@@ -65,27 +166,22 @@
 <div class="items">
 <p class="items-title">About Me:</p>
 <span class="items-info">
-    {{ $user->email }}
+{{ $user->bio }}
 </span>
 </div>
 <div class="items">
 <p class="items-title">Favourite:</p>
-<span class="items-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam viverra orci ut est facilisis.</span>
+<span class="items-info">
+{{ $user->bio }}
+</span>
 </div>
 
 <div class="items">
 <p class="items-title">Other Network:</p>
-<a class="facebook" href="https://www.facebook.com/">
+<a class="facebook" href="{{$user->links}}">
 <i class="fa fa-facebook"></i>
+</a>
 
-</a>
-<a class="twitter" href="https://twitter.com/login?lang=ar">
-<i class="fa fa-twitter"></i>
-</a>
-<a class="instagram" href="https://www.instagram.com/accounts/login/">
-<i class="fa fa-instagram"></i>
-
-</a>
 </div>
 
 <hr class="hr">
@@ -104,97 +200,55 @@ Marketing Bussiness Developers</span> </p>
 
 </div>
 <!-- End Aside Left -->
-                    
+    
 <!-- Start Section Posts -->
 <div class="col-sm-6">
 <div class="posts">                      
-<div class="create-poste-content">
-<div class="upload">
-<div class="upload-selction">
-<div>
-<i class="fa fa-photo"></i>
-<span>Add Photo / Video</span>
-</div>
-<i class="fa fa-times close-create-post"></i>
-</div>
-<div class="upload-text">
-<img src="/images/PU2.png" alt="Oops">
-<form>
-<textarea placeholder="What's on your mind?" id="text1" autofocus></textarea>
-<div class="validation">
-<div class="validation-box">
-    <span>The Post is empty</span>
-</div>
-</div>
-</form>
-</div>
-<div class="upload-post">
-<form>
-<input type="button" value="Post"  id="uplod-button">
-</form>
-</div>
-</div>
-</div>
+
 <!-- End Create Poste -->
 
 <!-- create post-->
+
+  
 <div class="upload" id="upload">
-    <form method="post" enctype="multipart/form-data">
-        <div class="upload-selction">
-            <input type="file" name="media" id="file" style="display: none;"/>
-            <i class="fa fa-photo" style="cursor: pointer;"></i>
-            <span>Add Photo / Video</span>
-        </div>
-        <div class="upload-text form-group {{ $errors->has('body') ? 'has-error' : '' }}">
-            <img src="/uploads/images/{{Auth::user()->profile_image}}" alt="profile image">
-            <form>
-            <textarea name="body" placeholder="What's on your mind?" id="open-create"></textarea>
-            </form>
-            @if ($errors->has('body'))
-            <small class="text-danger">{{ $errors->first('body') }}</small>
-            @endif 
-        </div>
-        <div class="upload-post">
-            <select class="form-control" name="category">
-            @foreach ($categories as $category)
-                <option value="{{$category->id}}">{{$category->name}}</option>
-            @endforeach
-        </select>
-        </div>
-        <div class="upload-post">
-            <form>
-                <input type="submit" value="Post">
-            </form>
-        </div>
-    </form>
-</div>  
+@include('profile.create')
+</div>
+
+
 
 <!--dispaly posts-->
 @foreach ($user->posts as $post)
+@if($post != null)
 <div class="post">
 <div class="post-icon">
+@if (Auth::check())
     @php
     $i = Auth::user()->likes()->count();
-    $c = 1;
-    $likeCount = $post->likes()->where('like', '=', true)->count();
     $commentCount = $post->comments()->where('comment', '!=', null)->count();
     @endphp
-    @foreach (Auth::user()->likes as $like) <!-- start foreach loop likes--> 
-    @if ($like->post_id == $post->id)
-    @if ($like->like)
-    <i class="fa fa-heart-o like"></i><h5>{{ $likeCount }}</h5>
-    @endif
-    @break
-    @elseif ($i == $c)
-    <i class="fa fa-heart-o like"></i><h5>{{ $likeCount }}</h5>
-    @endif
-    @php
-    $c++;
-    @endphp
-    @endforeach <!-- end foreach loop likes--> 
-    @if ($i == 0)
-    <i class="fa fa-heart-o like"></i>{{ $likeCount }}
-    @endif
+    
+   <!-- like here-->
+            @guest
+                <a href="javascript:void(0);" onclick="('To add favorite list. You need to login first.','Info',{
+                    closeButton: true,
+                    progressBar: true,
+                    })">
+                <i class="fa fa-heart"></i>
+                {{ $post->favorite_to_users->count() }}
+                </a>
+                @else
+                    <a href="javascript:void(0);" onclick="document.getElementById('favorite-form-{{ $post->id }}').submit();"
+                        class="{{ !Auth::user()->favorite_posts->where('pivot.post_id',$post->id)->count()  == 0 ? 'favorite_posts' : ''}}">
+                        <i class="fa fa-heart"></i>
+                        {{ $post->favorite_to_users->count() }}
+                    </a>
+
+                    <form id="favorite-form-{{ $post->id }}" method="POST" action="{{ route('post.favorite',$post->id) }}" style="display: none;">
+                    @csrf
+                    </form>
+                    @endguest
+                <!-- end like here-->
+                @endif
     <i class="fa fa-comment"></i><h5>{{ $commentCount }}</h5>
 </div>
 
@@ -236,14 +290,19 @@ Marketing Bussiness Developers</span> </p>
 <!-- post content-->
 <div class="post-content">
 <p>{{ $post->body }}</p>
-@if($post->postMedia)
-    @if($post->postMedia->type=="image")
-    <img src="/uploads/posts/images/{{$post->postMedia->path}}" style='width:100%;height:600px;'>
-    @endif
-    @if($post->postMedia->type=="video")
-    <video style='width:100%;height:600px;' controls>
-        <source src="/uploads/posts/video/{{$post->postMedia->path}}">
-    </video>
+@if($post->image != null)
+    <img src="/uploads/posts/images/{{$post->image}}" style='width:100%;height:600px;'>
+@endif
+@if($post->image == null)
+    @if($post->postMedia)
+        @if($post->postMedia->type=="image")
+        <img src="/uploads/posts/images/{{$post->postMedia->path}}" style='width:100%;height:600px;'>
+        @endif
+        @if($post->postMedia->type=="video")
+        <video style='width:100%;height:600px;' controls>
+            <source src="/uploads/posts/video/{{$post->postMedia->path}}">
+        </video>
+        @endif
     @endif
 @endif
 </div>
@@ -253,26 +312,31 @@ Marketing Bussiness Developers</span> </p>
 <div class="post-icon">
     @php
     $i = Auth::user()->likes()->count();
-    $c = 1;
-    $likeCount = $post->likes()->where('like', '=', true)->count();
     $commentCount = $post->comments()->where('comment', '!=', null)->count();
     @endphp
-    @foreach (Auth::user()->likes as $like) <!-- start foreach loop likes--> 
-    @if ($like->post_id == $post->id)
-    @if ($like->like)
-    <i class="fa fa-heart-o like"></i><h5>{{ $likeCount }}</h5>
-    @endif
-    @break
-    @elseif ($i == $c)
-    <i class="fa fa-heart-o like"></i><h5>{{ $likeCount }}</h5>
-    @endif
-    @php
-    $c++;
-    @endphp
-    @endforeach <!-- end foreach loop likes--> 
-    @if ($i == 0)
-    <i class="fa fa-heart-o like"></i>{{ $likeCount }}
-    @endif
+    
+    <!-- like here-->
+    @guest
+<a href="javascript:void(0);" onclick="('To add favorite list. You need to login first.','Info',{
+    closeButton: true,
+    progressBar: true,
+    })">
+  <i class="fa fa-heart"></i>
+  {{ $post->favorite_to_users->count() }}
+</a>
+@else
+    <a href="javascript:void(0);" onclick="document.getElementById('favorite-form-{{ $post->id }}').submit();"
+        class="{{ !Auth::user()->favorite_posts->where('pivot.post_id',$post->id)->count()  == 0 ? 'favorite_posts' : ''}}">
+        <i class="fa fa-heart"></i>
+        {{ $post->favorite_to_users->count() }}
+      </a>
+
+    <form id="favorite-form-{{ $post->id }}" method="POST" action="{{ route('post.favorite',$post->id) }}" style="display: none;">
+    @csrf
+    </form>
+@endguest
+                <!-- end like here-->
+    
     <i class="fa fa-comment"></i><h5>{{ $commentCount }}</h5>
 </div>
 <!-- post interacts-->
@@ -280,17 +344,21 @@ Marketing Bussiness Developers</span> </p>
 <div class="post-footer">
     <a href="{{ route('category.showAll', [$post->category? $post->category->name : 'uncategoeized']) }}" class="badge">{{ $post->category->name }}</a>
 </div>
+
 </div>
+@endif
 @endforeach
+
 <!--end display posts-->
 </div>
+
 </div>
 <!-- End Posts -->
 
 
 
 <div class="col-sm-3">
-<div class="aside-right">
+<div class="aside-right" style="width:100%;">
 
 <div class="top-post">
     <div class="title">
@@ -298,14 +366,31 @@ Marketing Bussiness Developers</span> </p>
     </div>
 
     <hr class="hr">
-    <div class="posts-photo">
-    @if($post->postMedia)
-        <img src="/uploads/posts/images/{{$post->postMedia->path}}">
+   
+    <div style="width: 271px;">
+    @foreach ($user->posts as $post)
+    @if($post)
+        @if($post->image != null)
+        <img src="/uploads/posts/images/{{$post->image}}" style='width:85%;height:85%;margin-left: 17px;margin-bottom:10px'>
+        @endif
+        @if($post->image == null)
+            @if($post->postMedia)
+                @if($post->postMedia->type=="image")
+                <img src="/uploads/posts/images/{{$post->postMedia->path}}" style='width:85%;height:85%;margin-left:17px;margin-bottom:10px'>
+                @endif 
+            @endif
+        @endif
     @endif
+    @endforeach
+    </div>
+    
     </div>
 </div>
 </div>
-</div>              
+@endif
+</div>
+</div>
+              
 
 <!-- <div class="col-sm-3">
 <div class="top-post">

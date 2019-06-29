@@ -1,11 +1,39 @@
 @extends('layouts.app')
-
+@push('css')
+a{
+    <style>
+        body{
+            background-image: url('/assets/images/BgSignUp.jpeg');
+        }
+        .card{
+            background-image: url('/assets/images/form-v9.jpg');
+        }
+        
+        label{
+            color:#00D1B8 !important; 
+        }
+        a{
+            color:#00D1B8 !important; 
+            text-decoration: none !important;
+        }
+        input[type=checkbox], input[type=radio] {
+            margin: 6px -13px 0px !important;
+        }
+        .form-check-label {
+            margin-left: 10px
+        } 
+    </style>
+}
+@endpush
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+            <div class="card" style="margin-top:30%">
+                <div class="card-header">
+                    Login
+                     
+                </div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">

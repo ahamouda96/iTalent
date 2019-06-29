@@ -1,5 +1,12 @@
 @extends('layouts.app')
+@push('css')
+<style>
+.container{
+    margin-top:60px !important;
+}
 
+</style>
+@endpush
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

@@ -7,6 +7,13 @@
 
     <title>Laravel</title>
 
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script>
+        $('.dropdown-toggle').dropdown();
+        $('.dropdown-menu').dropdown();
+    </script>
+
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
@@ -16,28 +23,17 @@
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     <link rel="stylesheet" href="/css/app.css">
 
-        <link rel="stylesheet" href="/css/Boot.min.css" />
-        <link rel="stylesheet" href="/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/css/bootstraps.min.css">
-        
-        <link rel="stylesheet" href="/css/font-awesome.min.css" />
-        <link rel="stylesheet" href="/css/animate.min.css" />
-        <link rel="stylesheet" href="/css/hover.css" />
-        <link rel="stylesheet" href="/css/jquery.fancybox.min.css" />
-        <link rel="stylesheet" href="/css/style.css" />
-
-    <!-- <link rel="stylesheet" href="/css/bootstraps.min.css" />
-    <link rel="stylesheet" href="/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/css/Boot.min.css" />
-    <link rel="stylesheet" href="/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="/css/animate.min.css" />
-    <link rel="stylesheet" href="/css/hover.css" />
-    <link rel="stylesheet" href="/css/hover.min.css" />
-    <link rel="stylesheet" href="/css/jquery.fancybox.min.css" />
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+    <link rel="stylesheet" href="/assets/css/Boot.min.css" />
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/bootstraps.min.css">
+    
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/assets/css/animate.min.css" />
+    <link rel="stylesheet" href="/assets/css/hover.css" />
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox.min.css" />
     <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/select2.css">
-    <link rel="stylesheet" href="/css/Italent.css"> -->
-
+    @stack('css')
 
     <style>
         body {
@@ -60,29 +56,27 @@
  @yield('content')
 
     <!-- JavaScripts -->
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script>
+    $('.dropdown-toggle').dropdown()
+</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+    
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    
 
 
 
-    <script src="/js/jquery-1.12.0.min.js"></script>
-    <script src="/js/jquery.nicescroll.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/plugin.js"></script>
-    <script src="/js/wow.min.js"></script>
-    <script>new WOW().init();</script>
-    <script src="/js/jquery.fancybox.min.js"></script>
-
-    <!-- <script src="/js/app.js"></script>
-    <script src="/js/main.js"></script>
-    <script src="/js/jquery-1.12.0.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/custom.js"></script>
-    <script src="/js/plugin.js"></script>
-    <script src="/js/vendor.js"></script> -->
-
+    
+    <script src="/assets/js/jquery-1.12.0.min.js"></script>
+        <script src="/assets/js/jquery.nicescroll.min.js"></script>
+        <script src="/assets/js/bootstrap.min.js"></script>
+        <script src="/assets/js/plugin.js"></script>
+        <script src="/assets/js/wow.min.js"></script>
+        <script>new WOW().init();</script>
+        <script src="/assets/js/jquery.fancybox.min.js"></script>
     
 </body>
 </html>

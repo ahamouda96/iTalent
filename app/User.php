@@ -21,7 +21,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['name', 'email','role_id','password',];
+    protected $fillable = ['name', 'email','role_id','password','bio','links', 'profile_image'];
     
 
     /**
@@ -42,6 +42,21 @@ class User extends Authenticatable
     public function posts(){
         return $this->hasMany('App\Post');
     }
+    
+    public function favorite_posts()
+    {
+        return $this->belongsToMany('App\Post')->withTimestamps();
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follow_system', 'leader_id', 'follower_id')->withTimestamps();
+    }
+
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'follow_system', 'follower_id', 'leader_id')->withTimestamps();
+    }
 
     public function likes() {
         return $this->hasMany('App\Like');
@@ -59,10 +74,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Friend', 'user_id_2');
     }
 
+    
     public function checkrole ($role){
         // return $this->role->name;
        
-        if(in_array($this->role->name,$role))
+        if(in_array($this->role->name,$role)) 
         {
             return true;
         }
@@ -77,15 +93,16 @@ class User extends Authenticatable
     }
 
 
-    public function followers()
-    {
-        return $this->belongsToMany(User::class, 'followers', 'leader_id', 'follower_id')->withTimestamps();
-    }
+    // public function followers()
+    // {
+    //     return $this->belongsToMany(User::class, 'followers', 'leader_id', 'follower_id')->withTimestamps();
+    // }
 
 
-    public function followings()
-    {
-        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'leader_id')->withTimestamps();
-    }
+    // public function followings()
+    // {
+    //     return $this->belongsToMany(User::class, 'followers', 'follower_id', 'leader_id')->withTimestamps();
+    // }
 
+    
     }

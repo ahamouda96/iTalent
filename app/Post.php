@@ -26,6 +26,10 @@ class Post extends Model
     public function comments(){
         return $this->hasMany('App\Comment');
     }
+    
+    public function favorite_to_users(){
+        return $this->belongsToMany('App\User')->withTimestamps();
+    }
 
     public function likes(){
         return $this->hasMany('App\Like');

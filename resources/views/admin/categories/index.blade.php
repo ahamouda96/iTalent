@@ -44,7 +44,7 @@
 		  	@foreach ($categories as $category)
 			  	<tr>
 			  		<td>{{$category->id}}</td>
-			  		<td><a href="{{route('categories.edit',$category->id)}}">{{$category->name}}</a></td>
+			  		<td><a href="{{route('category.showAll',$category->name)}}">{{$category->name}}</a></td>
 			  		<td>{{$category->created_at}}</td>
 			  		<td>{{$category->updated_at->diffForHumans()}}</td>
 						<td>
@@ -58,14 +58,14 @@
 			    </tr>
 		  	@endforeach
 		  @endif
-		    
 		  </tbody>
-
-
-
 		</table>
-
 	</div>
-
+ 
+	<div class="row">
+		<div class="col-sm-6 col-sm-offset-5">
+				{{$categories->render()}}
+		</div>
+	</div>
 
 @endsection

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container" style="margin-top:50px;">
         <div class="col-sm-6 col-sm-offset-3">
             @if (Session::has('success'))
                 <div class="alert alert-success">
@@ -22,7 +22,7 @@
                             </small>
                         @endif
                         <div class="pull-right">
-                            <a href="{{ url('/posts') }}">Return back</a>
+                            <a href="{{ url('/home') }}">Return back</a>
                         </div>
                        
                         <div class="form-group {{ $errors->has('body') ? 'has-error' : '' }}">
@@ -32,7 +32,7 @@
                             @endif
                         </div>
                         <div class="form-group">
-                          <input type="file" class="form-control" name="media">
+                          <input type="file" class="form-control" name="image">
                         </div>
                         <div class="form-group">
                           <select class="form-control" name="category">

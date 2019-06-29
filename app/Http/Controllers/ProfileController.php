@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Traits\UploadTrait;
-
+use Illuminate\Support\Facades\Hash;
+use App\Role;
 use App\User;
+use App\Post;
+use Auth;
+
 
 class ProfileController extends Controller
 {
@@ -30,10 +34,14 @@ class ProfileController extends Controller
 
         // Get current user
         $user = User::findOrFail(auth()->user()->id);
-        // Set user name 
         $user->name = $request->input('name');
-        // set user email
         $user->email = $request->input('email');
+        $user->bio = $request->input('bio');
+        $user->links = $request->input('links');
+
+        if($request->has('password') && $request->get('password') != null){
+            $user->password = bcrypt($request['password']);
+        }
 
         // Check if a profile image has been uploaded
         if ($request->has('profile_image')) {
@@ -59,13 +67,57 @@ class ProfileController extends Controller
         return redirect()->back()->with(['status' => 'Profile updated successfully.']);
     }
 
+    public function latestPosts()
+    {
+        
+        $posts = Post::where('user_id', Auth::user()->id)->paginate(4);
+        // $posts = Post::all()->sortByDesc('id')->paginate(4);
+        return view('profile.rightaside', compact('posts'));
+    }
 
-/**
- * Follow the user.
- *
- * @param $profileId
- *
- */
+    public function add($id)
+    { 
+        $user = Auth::user();
+        $isFollow = $user->followings()->where('leader_id',$id)->count();
+        if ($isFollow == 0)
+        {
+            $user->followings()->attach($id);
+
+            return redirect()->back();
+        } else {
+            $user->followings()->detach($id);
+            
+            return redirect()->back();
+        }
+    }
+
+    // public function followUser(int $profileId)
+    // {
+    //     $user = User::find($profileId);
+    //     if(! $user) {
+    //     return redirect()->back()->with('error', 'User does not exist.'); 
+    // }
+    //     $user->followers()->attach(auth()->user()->id);
+    //     return redirect()->back()->with('success', 'Successfully followed the user.');
+    // }
+
+    // public function unFollowUser(int $profileId)
+    // {
+    //     $user = User::find($profileId);
+    //     if(! $user) {
+    //     return redirect()->back()->with('error', 'User does not exist.'); 
+    // }
+    //     $user->followers()->detach(auth()->user()->id);
+    //     return redirect()->back()->with('success', 'Successfully unfollowed the user.');
+    // }
+
+    // public function show(int $userId)
+    // { 
+    //     $user = User::find($userId);
+    //     $followers = $user->followers;
+    //     $followings = $user->followings;
+    //     return view('user.show', compact('user', 'followers' , 'followings'));
+    // }
 
    
 }

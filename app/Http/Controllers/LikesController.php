@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Like;
 use App\Post;
 use Auth;
+use DB;
 
 class LikesController extends Controller
 {
@@ -22,7 +23,24 @@ class LikesController extends Controller
             $likes->delete();
         }
        
-        
-    } 
+    }
+    
+    public function firstRows()
+    {
+        $posts = Post::all()->take(10);
+        return view('posts.topposts', compact('posts'));
+    }
+
+    public function topPosts()
+    {
+        $posts = Post::select(DB::raw('posts.*,count(likes.id) as aggregate'))
+        ->leftJoin('likes', 'likes.post_id', '=', 'posts.id')
+        ->groupBy('posts.id')
+        ->orderBy('aggregate','desc')
+        ->limit(5)
+        ->get();
+
+        return view('posts.topposts', compact('posts'));
+    }
 }
 

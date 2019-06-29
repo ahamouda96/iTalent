@@ -1,4 +1,5 @@
-<form method="post" enctype="multipart/form-data">        
+<form method="post" enctype="multipart/form-data">  
+  {{ csrf_field() }}      
   <div class="upload" id="upload"> <!--upload div-->
     <div class="upload-selction">
     <input type="file" name="media" id="file" style="display: none;"/>

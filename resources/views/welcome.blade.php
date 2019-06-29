@@ -69,7 +69,12 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
+                    @if(auth()->user()->role_id !=4 )
                         <a href="{{ url('/home') }}">Home</a>
+                    @endif
+                    @if(auth()->user()->role_id ==4 )
+                        <a href="{{ url('/user/home') }}">Home</a>
+                    @endif
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
